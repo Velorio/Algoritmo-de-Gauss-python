@@ -6,8 +6,7 @@ Este programa resuelve sistemas de ecuaciones lineales utilizando el método de 
 
 1. Ejecuta el programa gauss.py
 
-2. **Ingresa las ecuaciones lineales:** El programa solicitará ingresar ecuaciones lineales en el formato estándar. Por ejemplo: **-3x+y+z=-2** 
-	también se admite **-3x1+x2+x3=-2**. **Las variables del sistema deben ser consistentes**
+2. **Ingresa las ecuaciones lineales:** El programa solicitará ingresar ecuaciones lineales en el formato estándar. Por ejemplo: **-3x+y+z=-2**. También se admite **-3x1+x2+x3=-2**. **Las variables del sistema deben ser consistentes**
 
 3. **Finalización del ingreso de ecuaciones:** Una vez que hayas ingresado todas las ecuaciones que conforman el sistema, responde  **n** cuando el programa pregunte "Quiere ingresar otra ecuación? (s/n):".
 
@@ -16,6 +15,7 @@ Este programa resuelve sistemas de ecuaciones lineales utilizando el método de 
 # Ejemplo de uso
 
 ``` Ingrese una ecuación lineal: -3x+y+z=-2
+Ingrese una ecuación lineal: -3x+y+z=-2
 {'coeficientes': [-3, 1, 1], 'variables': ['x', 'y', 'z'], 'termino_independiente': '-2'}
 Quiere ingresar otra ecuación? (s/n): s
 Ingrese una ecuación lineal: -6x+2y+2z+2w=-4
