@@ -151,12 +151,11 @@ def crear_ecuacion(coeficientes, variables, termino_independiente):##Crea un dic
 
 def ajustar_sistema():##Verifica que todas las variables tengan un coeficiente en cada ecuación
     for ecuacion in ecuaciones_sistema:
-        for variable in variables_sistema:
-            if ecuacion['variables'] != variables_sistema:
-                for variable in variables_sistema:
-                    if variable not in ecuacion['variables']:
-                        ecuacion['variables'].append(variable)
-                        ecuacion['coeficientes'].append(0)
+        if ecuacion['variables'] != variables_sistema:
+            for variable in variables_sistema:
+                if variable not in ecuacion['variables']:
+                    ecuacion['variables'].append(variable)
+                    ecuacion['coeficientes'].append(0)
 
 def determinante_sistema():
     coeficientes = []
@@ -188,21 +187,25 @@ def solucionar_sistema():
     
 
     for i in range(tam_sistema):##Pivoteo
-        print(f"\nIteración {i}\n")
+        print(f"\nIteración {i+1}\n")
         pivote = matriz_A[i][i]
-
+        print(f"Pivote = {pivote} en iteración {i+1}\n")
         if pivote == 0:
-            # Intercambiar fila i con una fila en la cual matriz_A[j][i] sea distinto de 0
+            for fila in matriz_A:
+                print(fila)
+
+            # Intercambiar fila i con una fila en la cual matriz_A[j][i] sea distinto de 0            
             for j in range(i + 1, tam_sistema):
                 if matriz_A[j][i] != 0:
-                    print(f"cambiando fila{i} por fila{j}")
+                    print(f"cambiando fila{i+1} por fila{j+1}\n")
                     matriz_A[i], matriz_A[j] = matriz_A[j], matriz_A[i]
                     vector_b[i], vector_b[j] = vector_b[j], vector_b[i]
+                    pivote = matriz_A[i][i]
                     break  # Salir del bucle una vez que se ha realizado el intercambio
-
         print_fila_actual(i,matriz_A,vector_b)
         for j in range(i+1,tam_sistema):
             aji = matriz_A[j][i]
+            print(f"aji= {aji} / pivote = {pivote}")
             factor = aji/pivote
             for k in range (i,tam_sistema):
                 matriz_A[j][k] -= factor*matriz_A[i][k]
@@ -244,9 +247,8 @@ if __name__ == '__main__':
             break
 
     for ecuacion in ecuaciones_sistema:##Verifica que todas las variables tengan un coeficiente en cada ecuación
-        for variable in variables_sistema:
-            if ecuacion['variables'] != variables_sistema:
-                ajustar_sistema()
+        if ecuacion['variables'] != variables_sistema:
+            ajustar_sistema()
 
     print(variables_sistema)
     for ecuacion in ecuaciones_sistema:
