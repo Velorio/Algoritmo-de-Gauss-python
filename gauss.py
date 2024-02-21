@@ -11,7 +11,7 @@ def analizar_t_independiente(t_independiente):##Verifica que la ecuación tenga 
         print("Error: La ecuación debe estar igualada a algún valor númerico")
         return False
     try:
-        valor=eval(t_independiente)
+        valor=eval(t_independiente) ## Si el termino independiente se puede evaluar como un número entonces es un termino válido
         float(valor)
     except ValueError:
         print("Error: El resultado de la ecuación debe ser un valor numérico.")
@@ -232,19 +232,32 @@ if __name__ == '__main__':
     coeficientes_actuales = []
     variables_actuales = []
     termino_ind_actual = 0
+
+    print("Algunos ejemplos de ecuaciones que el sistema acepta:")
+    print("3x+y-4z=10")
+    print("-4x1-3x2+4x3+5x5=15")
+    print("a+2b+4c-5d=12")    
+    print("Ecuaciones que el sistema no acepta:")
+    print("x/2+y/3=5")
+    print("C1X1+C2X2+C3X3=b1")
+    print("x+y=")
+    print("En caso de no ingresar termino independiente el sistema toma 1 como el valor")
+    input("presione enter para continuar")
+
     while continuar == "s":
+
         ecuacion_ingresada = eliminar_espacios(input("Ingrese una ecuación lineal: "))
         partes = ecuacion_ingresada.split("=")##Separa las variables y el termino independiente
-        parte2_validez = analizar_t_independiente(partes[1])##Verifica que exista un termino independiente válido
-        if parte2_validez: 
+
+        termino_independiente = "1" if len(partes)==1 else partes[1] ##Si no se especifica termino independiente se toma 1 como el valor del termino independiente
+        
+        if analizar_t_independiente(termino_independiente) and len(partes)<3: ##Verifica que el termino independiente sea válido y que la ecuación solo tenga un "="
             coeficientes_actuales, variables_actuales = analizar_ecuacion(partes[0])##Obtiene los coeficientes y variables en 2 listas independientes
-            termino_ind_actual = partes[1]
-            ecuaciones_sistema.append(crear_ecuacion(coeficientes_actuales,variables_actuales,termino_ind_actual))##Agrega la ecuación a la lista de ecuaciones del sistema
+            ecuaciones_sistema.append(crear_ecuacion(coeficientes_actuales,variables_actuales,termino_independiente))##Agrega la ecuación a la lista de ecuaciones del sistema
             print(ecuaciones_sistema[len(ecuaciones_sistema)-1])
             continuar = input("Quiere ingresar otra ecuación? (s/n): ")
         else:
             print("Ecuación Invalida")
-            break
 
     for ecuacion in ecuaciones_sistema:##Verifica que todas las variables tengan un coeficiente en cada ecuación
         if ecuacion['variables'] != variables_sistema:
